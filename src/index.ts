@@ -1,6 +1,6 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
-import { MessageInterface } from "./interfaces/MessageInterface";
+import { MessageInterface } from "../interfaces/MessageInterface";
 
 
 var port = process.env.PORT || 3002;
