@@ -2,9 +2,6 @@ import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { MessageInterface } from "../interfaces/MessageInterface";
 
-
-var port = process.env.PORT || 3002;
-
 var messages: MessageInterface[] = [];
 var rooms : string[] = [];
 
@@ -15,23 +12,7 @@ const socket = new Server(httpServer, {
     methods: ["GET", "POST"]
   }
 });
-
-// interface ISocket extends Socket {
-//   username?: string
-// }
-
-// socket.use((socket: ISocket, next) => {
-//   const username = socket.handshake.auth.username;
-//   if(!username) {
-//     return next(new Error("Username inválido"));
-//   }
-//   socket.username = username;
-//   next()
-// })
-
 socket.on("connection", (socket) => {
-  // const users = [];
-  // socket.emit("users", users);
 
   socket.on("join_room", (room) => {
     socket.join(room);
@@ -53,4 +34,4 @@ socket.on("connection", (socket) => {
   );
 });
 
-httpServer.listen(port, () => console.log(`Rodando na porta: ${port}`));
+httpServer.listen(process.env.PORT || 3002, () => console.log("Servidor ligador"));
