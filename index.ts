@@ -5,7 +5,7 @@ import express from "express";
 import cors from 'cors';
 const app = express();
 
-var port = process.env.PORT || 3005;
+var port = process.env.PORT || 3002;
 
 var messages: MessageInterface[] = [];
 var rooms : string[] = [];
@@ -21,7 +21,7 @@ const socket = new Server(httpServer, {
   }
 });
 
-app.get('teste', (req, res) => {
+app.get('/teste', (req, res) => {
   res.send('Funcionando')
   // teste
 })
