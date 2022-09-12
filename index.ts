@@ -15,7 +15,7 @@ app.use(cors())
 const httpServer = createServer(app);
 const socket = new Server(httpServer, {
   cors: {
-    origin: "https://intranet-mercadotica.vercel.app/",
+    origin: "*",
     methods: ["GET,PUT,POST,DELETE"],
     credentials: false,
   }
