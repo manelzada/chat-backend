@@ -1,18 +1,34 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
-import { MessageInterface } from "../interfaces/MessageInterface";
+import { MessageInterface } from "./interfaces/MessageInterface";
+import express from "express";
+import cors from 'cors';
+const app = express();
+
+var port = process.env.PORT || 3005;
 
 var messages: MessageInterface[] = [];
 var rooms : string[] = [];
 
-const httpServer = createServer();
+app.use(cors())
+
+const httpServer = createServer(app);
 const socket = new Server(httpServer, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
+    origin: "https://intranet-mercadotica.vercel.app/",
+    methods: ["GET,PUT,POST,DELETE"],
+    credentials: false,
   }
 });
+
+app.get('teste', (req, res) => {
+  res.send('Funcionando')
+  // teste
+})
+
 socket.on("connection", (socket) => {
+  // const users = [];
+  // socket.emit("users", users);
 
   socket.on("join_room", (room) => {
     socket.join(room);
@@ -34,4 +50,4 @@ socket.on("connection", (socket) => {
   );
 });
 
-httpServer.listen(process.env.PORT || 3002, () => console.log("Servidor ligador"));
+httpServer.listen(port, () => console.log(`Rodando na porta: ${port}`));
